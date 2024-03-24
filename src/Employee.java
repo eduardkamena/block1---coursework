@@ -1,10 +1,8 @@
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
 // Создание класса Employee с информацией о сотрудниках
 public class Employee {
-    // Использование AtomicInteger (нашел на просторах) как хорошая альтернатива обычному счетчику
-    private static final AtomicInteger COUNTER = new AtomicInteger(101);
+    private static int counter = 101; // Добавляем статический счетчик id сотрудника
     private final String lastName; // Фамилия сотрудника
     private final String firstName; // Имя сотрудника
     private final String middleName; // Отчество сотрудника
@@ -19,7 +17,7 @@ public class Employee {
         this.middleName = middleName;
         this.department = department;
         this.salary = salary;
-        id = COUNTER.getAndIncrement(); // Реализация счетчика (долго почему-то доходило как правильно его внедрить)
+        this.id = counter++;
     }
 
     // Геттеры
