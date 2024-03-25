@@ -62,7 +62,7 @@ public class Main {
 
     // Метод для поиска сотрудника с минимальной ЗП
     public static int findMinSalary() {
-        int min = 1_000_000;
+        int min = employees[0].getSalary();
         String minSalaryEmployee = null;
         for (Employee employee : employees) {
             if (employee.getSalary() < min) {
@@ -76,7 +76,7 @@ public class Main {
 
     // Метод для поиска сотрудника с максимальной ЗП
     public static int findMaxSalary() {
-        int max = -1;
+        int max = employees[0].getSalary();
         String maxSalaryEmployee = null;
         for (Employee employee : employees) {
             if (employee.getSalary() > max) {
