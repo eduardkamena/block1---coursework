@@ -8,10 +8,10 @@ public class Employee {
     private final String middleName; // Отчество сотрудника
     private final int id; // id сотрудника
     private int department; // Отделы компании
-    private int salary; // Зарплата сотрудника
+    private double salary; // Зарплата сотрудника
 
     // Метод для создания объектов
-    public Employee(String lastName, String firstName, String middleName, int department, int salary) {
+    public Employee(String lastName, String firstName, String middleName, int department, double salary) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -37,6 +37,10 @@ public class Employee {
         return this.lastName + " " + this.firstName + " " + this.middleName;
     }
 
+    public String getDataEmployeeWithoutDepartment() {
+        return "Сотрудник: " + getName() + ", id - " + this.id + ", ЗП - " + this.salary;
+    }
+
     public int getId() {
         return id;
     }
@@ -45,7 +49,7 @@ public class Employee {
         return this.department;
     }
 
-    public int getSalary() {
+    public double getSalary() {
         return this.salary;
     }
 
@@ -54,7 +58,7 @@ public class Employee {
         this.department = department;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(double salary) {
         this.salary = salary;
     }
 
