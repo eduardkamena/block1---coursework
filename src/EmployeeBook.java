@@ -1,11 +1,6 @@
 public class EmployeeBook {
+
     private final Employee[] employees; // Объявление массива для записей о сотрудниках
-
-    // Переменная отдела (я инициализировал одну переменную для методов решения задач по отделу)
-    // Чтобы не вводить ее каждый раз
-    public int department; // Номер отдела (значение присваивается в main)
-
-    public String name; // Переменная для метода поиска по ФИО
 
     public EmployeeBook() {
         this.employees = new Employee[10]; // Длина массива — 10
@@ -37,23 +32,23 @@ public class EmployeeBook {
     }
 
     // Метод для поиска сотрудника по ФИО (указать полное ФИО)
-    public void findEmployeeName() {
+    public void findEmployeeName(String fullName) {
         for (Employee employee : employees) {
-            if (employee.getName().equals(name)) {
+            if (employee.getName().equals(fullName)) {
                 System.out.println("Найден сотрудник по ФИО - {" + employee + "}");
                 return;
             }
         }
-        System.out.println("Сотрудник {" + name + "} не найден (укажите полное ФИО)");
+        System.out.println("Сотрудник {" + fullName + "} не найден (укажите полное ФИО)");
     }
 
-    // Метод изменения данных сотрудника после поиска по ФИО
-    public void changeEmployeeData(int newDepartment, double newSalary) {
+    // Метод изменения данных сотрудника по ФИО
+    public void changeEmployeeData(String fullName, int newDepartment, double newSalary) {
         for (Employee employee : employees) {
-            if (employee.getName().equals(name) && newDepartment > 0 && newDepartment <= 5) {
+            if (employee.getName().equals(fullName) && newDepartment > 0 && newDepartment <= 5) {
                 employee.setDepartment(newDepartment);
                 employee.setSalary(newSalary);
-                System.out.println("Данные о сотруднике изменены!");
+                System.out.println("Данные о сотруднике {" + employee.getName() + "} изменены!");
                 System.out.println("Переведен в отдел {" + newDepartment + "} и назначена новая ЗП {" + newSalary + "}");
                 return;
             }
@@ -219,32 +214,22 @@ public class EmployeeBook {
 
     // Методы по работе с сотрудниками компании по отделам
 
-    // Метод проверки номера отдела для сокращения кода и вывода ошибки
-    public boolean checkDepartment() {
-        boolean i = department > 0 && department <= 5;
-        if (i) {
-        } else {
-            throw new IllegalArgumentException("Укажите правильный номер отдела");
-        }
-        return i;
-    }
-
     // Метод печати всех сотрудников отдела (все данные, кроме отдела)
-    public void printDepartmentEmployees() {
-        if (checkDepartment()) {
+    public void printDepartmentEmployees(int department) {
+        if (department > 0 && department <= 5) {
             System.out.println("Сотрудники отдела компании № " + department + " после индексирования зарплаты:");
             for (Employee employee : employees) {
                 if (employee.getDepartment() == department) {
                     System.out.println(employee.getDataEmployeeWithoutDepartment());
                 }
             }
-        }
+        } else throw new IllegalArgumentException("Укажите правильный номер отдела");
     }
 
     // Метод получения суммы затрат на ЗП по отделу
-    public double calculateMonthDepartmentSalary() {
+    public void calculateMonthDepartmentSalary(int department) {
         double sum = 0;
-        if (checkDepartment()) {
+        if (department > 0 && department <= 5) {
             for (Employee employee : employees) {
                 if (employee.getDepartment() == department) {
                     sum += employee.getSalary();
@@ -252,15 +237,14 @@ public class EmployeeBook {
             }
             System.out.println("Сумма затрат на ЗП в месяц по отделу № " + department + " составляет - "
                     + String.format("%.2f", sum) + " рублей");
-        }
-        return sum;
+        } else throw new IllegalArgumentException("Укажите правильный номер отдела");
     }
 
     // Метод вычисления средней ЗП по отделу (учесть, что количество людей в отделе отличается от employees.length)
-    public double findAverageDepartmentSalary() {
+    public void findAverageDepartmentSalary(int department) {
         double average = 0;
         int count = 0;
-        if (checkDepartment()) {
+        if (department > 0 && department <= 5) {
             for (Employee employee : employees) {
                 if (employee.getDepartment() == department) {
                     average += employee.getSalary();
@@ -270,12 +254,11 @@ public class EmployeeBook {
             average = average / count;
             System.out.println("Средняя сумма затрат на ЗП в месяц по отделу № " + department + " составляет - "
                     + String.format("%.2f", average) + " рублей");
-        }
-        return average;
+        } else throw new IllegalArgumentException("Укажите правильный номер отдела");
     }
 
     // Метод получения в качестве параметра номера отдела и поиска сотрудника с минимальной ЗП в нем
-    public double findMinSalaryDepartment() {
+    public void findMinSalaryDepartment(int department) {
         /*
          Сослался на метод поиска максимального значения ЗП findMaxSalary() как максимальное значение ЗП
          (если убрать из метода печать в консоль, то моя логика работает)
@@ -283,7 +266,7 @@ public class EmployeeBook {
          */
         double min = findMaxSalary();
         String minSalaryDepartmentEmployee = null;
-        if (checkDepartment()) {
+        if (department > 0 && department <= 5) {
             for (Employee employee : employees) {
                 if (employee.getDepartment() == department && employee.getSalary() < min) {
                     min = employee.getSalary();
@@ -292,12 +275,11 @@ public class EmployeeBook {
             }
             System.out.println("Минимальная ЗП у сотрудника отдела № " + department + " - "
                     + min + " рублей (" + minSalaryDepartmentEmployee + ")");
-        }
-        return min;
+        } else throw new IllegalArgumentException("Укажите правильный номер отдела");
     }
 
     // Метод получения в качестве параметра номера отдела и поиска сотрудника с максимальной ЗП в нем
-    public double findMaxSalaryDepartment() {
+    public void findMaxSalaryDepartment(int department) {
         /*
          По аналогии сослался на метод поиска минимального значения ЗП findMinSalary() как минимального значение ЗП
          (если убрать из метода печать в консоль, то моя логика работает)
@@ -305,7 +287,7 @@ public class EmployeeBook {
          */
         double max = findMinSalary();
         String maxSalaryDepartmentEmployee = null;
-        if (checkDepartment()) {
+        if (department > 0 && department <= 5) {
             for (Employee employee : employees) {
                 if (employee.getDepartment() == department && employee.getSalary() > max) {
                     max = employee.getSalary();
@@ -314,24 +296,22 @@ public class EmployeeBook {
             }
             System.out.println("Максимальная ЗП у сотрудника отдела № " + department + " - "
                     + max + " рублей (" + maxSalaryDepartmentEmployee + ")");
-        }
-        return max;
+        } else throw new IllegalArgumentException("Укажите правильный номер отдела");
     }
 
     // Метод индексации зарплат всех сотрудников отдела на процент, который приходит в качестве параметра
-    public double indexingDepartmentSalary(double percent) {
-        double indexedDepartmentSalary = 0;
-        if (checkDepartment()) {
+    public void indexingDepartmentSalary(int department, double percent) {
+        double indexedDepartmentSalary;
+        if (department > 0 && department <= 5) {
             System.out.println("Сотрудники отдела компании № " + department + " после индексирования зарплаты:");
             for (Employee employee : employees) {
-                if (checkDepartment() && employee.getDepartment() == department) {
+                if (employee.getDepartment() == department) {
                     indexedDepartmentSalary = employee.getSalary() + employee.getSalary() / 100 * percent;
                     employee.setSalary(indexedDepartmentSalary);
                     System.out.println(employee);
                 }
             }
-        }
-        return indexedDepartmentSalary;
+        } else throw new IllegalArgumentException("Укажите правильный номер отдела");
     }
 
 }

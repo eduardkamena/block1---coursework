@@ -12,11 +12,12 @@ public class Main {
         System.out.println();
 
         // Вызов метода для поиска сотрудника по ФИО
-        employeeBook.name = "Боголюбов Валерий Сергеевич"; // Нужно указать полное ФИО сотрудника
-        employeeBook.findEmployeeName();
+        // fullName - полное ФИО сотрудника
+        employeeBook.findEmployeeName("Боголюбов Валерий Сергеевич");
+        System.out.println();
 
-        // Вызов метода изменения данных сотрудника после поиска по ФИО
-        employeeBook.changeEmployeeData(1, 70000);
+        // Вызов метода изменения данных сотрудника по ФИО
+        employeeBook.changeEmployeeData("Боголюбов Валерий Сергеевич", 1, 70_000);
         System.out.println();
 
         // Вызов метода для удаления сотрудника по id из базы
@@ -30,7 +31,7 @@ public class Main {
         System.out.println();
 
         // Вызов метода записи нового сотрудника, если ячейка свободна (с поиском сначала массива)
-        employeeBook.addEmployee("Молчанов", "Кирилл", "Сергеевич", 3, 150000);
+        employeeBook.addEmployee("Молчанов", "Кирилл", "Сергеевич", 3, 150_000);
         System.out.println();
 
 
@@ -84,31 +85,30 @@ public class Main {
 
         // Методы по работе с сотрудниками компании по отделам
 
-        employeeBook.department = 3; // Инициализация номера отдела для методов по отделам компании (по условию 1-5)
-
         // Вызов метода печати всех сотрудников отдела (все данные, кроме отдела)
-        employeeBook.printDepartmentEmployees();
+        employeeBook.printDepartmentEmployees(4);
         System.out.println();
 
         // Вызов метода для получения суммы затрат на ЗП по отделу
-        employeeBook.calculateMonthDepartmentSalary();
+        employeeBook.calculateMonthDepartmentSalary(2);
         System.out.println();
 
         // Вызов метода для получения средней суммы затрат на ЗП по отделу
-        employeeBook.findAverageDepartmentSalary();
+        employeeBook.findAverageDepartmentSalary(3);
         System.out.println();
 
         // Вызов метода для поиска сотрудника с минимальной ЗП в отделе
-        employeeBook.findMinSalaryDepartment();
+        employeeBook.findMinSalaryDepartment(3);
         System.out.println();
 
         // Вызов метода для поиска сотрудника с максимальной ЗП в отделе
-        employeeBook.findMaxSalaryDepartment();
+        employeeBook.findMaxSalaryDepartment(3);
         System.out.println();
 
         // Вызов метода индексации зарплат всех сотрудников отдела на процент
+        // department - номер отдела
         // percent - устанавливаемый % индексирования
-        employeeBook.indexingDepartmentSalary(20);
+        employeeBook.indexingDepartmentSalary(2, 20);
         System.out.println();
 
     }
